@@ -252,7 +252,7 @@ if(tipo==='CADASTRO'){
 let unidadesOptions='<option value="">Selecione</option>'+UNIDADES.map(([v,l])=>`<option value="${v}">${l}</option>`).join('');
 camposHtml=`
 <div class="grid">
-<div class="fld full"><label>Descrição Completa <span class="req">*</span></label><textarea data-field="descricao_produto" placeholder="Ex: Disco de corte para aço 12 x 1/8 x 5/8" maxlength="2000"></textarea><span class="hint">Inclua especificações, modelo, dimensões</span><span class="emsg">Informe a descrição</span></div>
+<div class="fld full"><label>Descrição Completa <span class="req">*</span></label><textarea data-field="descricao" placeholder="Ex: Disco de corte para aço 12 x 1/8 x 5/8" maxlength="2000"></textarea><span class="hint">Inclua especificações, modelo, dimensões</span><span class="emsg">Informe a descrição</span></div>
 <div class="fld full"><label>Finalidade <span class="req">*</span></label><textarea data-field="finalidade" placeholder="Ex: Manutenção da linha de produção" maxlength="1000"></textarea><span class="hint">Onde / como será utilizado</span><span class="emsg">Informe a finalidade</span></div>
 <div class="fld"><label>NCM</label><input data-field="ncm" placeholder="0000.00.00" maxlength="10" oninput="maskNCM(this)"><span class="hint">Opcional</span></div>
 <div class="fld"><label>Unidade de Medida <span class="req">*</span></label><select data-field="unidade_medida">${unidadesOptions}</select><span class="emsg">Selecione a unidade</span></div>
@@ -262,7 +262,8 @@ camposHtml=`
 }else{
 camposHtml=`
 <div class="grid">
-<div class="fld full"><label>Código no Protheus <span class="req">*</span></label><input data-field="codigo_protheus" placeholder="Ex: 12345 ou ABC-123" maxlength="50"><span class="hint">Código do item conforme cadastrado no sistema Protheus</span><span class="emsg">Informe o código</span></div>
+<div class="fld full"><label>Código do Produto no Protheus <span class="req">*</span></label><input data-field="codigo_produto" placeholder="Ex: 12345 ou ABC-123" maxlength="50"><span class="hint">Código do item conforme cadastrado no sistema Protheus</span><span class="emsg">Informe o código</span></div>
+<div class="fld full"><label>Nome / Descrição do Produto</label><input data-field="nome_produto" placeholder="Ex: Disco de corte 12 polegadas" maxlength="200"><span class="hint">Opcional — ajuda a identificar mais rápido</span></div>
 <div class="fld full"><label>Motivo do Desbloqueio <span class="req">*</span></label><textarea data-field="motivo" placeholder="Explique por que precisa desbloquear este produto..." maxlength="1000"></textarea><span class="hint">Quanto mais contexto, mais rápido o atendimento</span><span class="emsg">Informe o motivo</span></div>
 </div>`;
 }
@@ -376,8 +377,8 @@ return false;
 }
 
 const requiredFields=tipo==='CADASTRO'
-?['descricao_produto','finalidade','unidade_medida']
-:['codigo_protheus','motivo'];
+?['descricao','finalidade','unidade_medida']
+:['codigo_produto','motivo'];
 
 cards.forEach(card=>{
 requiredFields.forEach(field=>{
@@ -392,7 +393,7 @@ ok=false;
 
 /* Validações específicas CADASTRO */
 if(tipo==='CADASTRO'){
-const desc=card.querySelector('[data-field="descricao_produto"]');
+const desc=card.querySelector('[data-field="descricao"]');
 if(desc && desc.value.trim() && desc.value.trim().length<3){
 setErrEl(desc,'Mínimo 3 caracteres');
 if(!firstErr)firstErr=desc;
@@ -504,7 +505,7 @@ if(tipo==='CADASTRO'){
 blockTitle='Produto #'+num;
 blockIcon=ICONS.box;
 blockItems=[
-['Descrição',item.descricao_produto,true],
+['Descrição',item.descricao,true],
 ['Finalidade',item.finalidade,true],
 ['NCM',item.ncm],
 ['Unidade',item.unidade_medida],
@@ -515,7 +516,8 @@ blockItems=[
 blockTitle='Desbloqueio #'+num;
 blockIcon=ICONS.unlock;
 blockItems=[
-['Código no Protheus',item.codigo_protheus],
+['Código no Protheus',item.codigo_produto],
+['Nome do Produto',item.nome_produto],
 ['Motivo',item.motivo,true]
 ];
 }
@@ -549,19 +551,19 @@ if(items.length===0)throw new Error('Adicione pelo menos um item.');
 /* UUID compartilhado por todos os itens da mesma solicitação */
 const solicitacaoId=uuidv4();
 
-/* Construir array de registros */
+/* Construir array de registros com schema da tabela alvo */
+const tabela=tipo==='CADASTRO'?'produtos':'desbloqueios';
 const records=items.map(item=>{
 const base={
 nome_solicitante:nome,
 email_solicitante:email,
-tipo_solicitacao:tipo,
 solicitacao_id:solicitacaoId,
-status:'PENDENTE'
+status:'pendente'
 };
 if(tipo==='CADASTRO'){
 return {
 ...base,
-descricao_produto:item.descricao_produto,
+descricao:item.descricao,
 finalidade:item.finalidade,
 ncm:item.ncm||null,
 unidade_medida:item.unidade_medida,
@@ -571,15 +573,16 @@ imagem_url:item.imagem_url||null
 }else{
 return {
 ...base,
-codigo_protheus:item.codigo_protheus,
+codigo_produto:item.codigo_produto,
+nome_produto:item.nome_produto||null,
 motivo:item.motivo
 };
 }
 });
 
-console.log('Pacote pronto para o Supabase:',records);
+console.log('Pacote pronto para o Supabase:',{tabela,records});
 
-const res=await fetch(SB_URL+'/rest/v1/produtos',{
+const res=await fetch(SB_URL+'/rest/v1/'+tabela,{
 method:'POST',
 headers:{
 'apikey':SB_KEY,
@@ -593,13 +596,9 @@ body:JSON.stringify(records)
 if(!res.ok){
 const errText=await res.text();
 console.error('Erro Supabase:',errText);
-if(errText.includes('Limite de cadastros'))throw new Error('Limite de envios por hora atingido. Aguarde antes de tentar novamente.');
 if(errText.includes('email_premix'))throw new Error('E-mail inválido. Use seu e-mail @premix.com.br.');
-if(errText.includes('coerencia_chk'))throw new Error('Dados incompletos. Verifique todos os campos obrigatórios.');
-if(errText.includes('descricao_len'))throw new Error('Descrição muito curta ou longa (3 a 2000 caracteres).');
-if(errText.includes('finalidade_len'))throw new Error('Finalidade muito curta ou longa (3 a 1000 caracteres).');
-if(errText.includes('motivo_len'))throw new Error('Motivo muito curto ou longo (3 a 1000 caracteres).');
-if(errText.includes('protheus_len'))throw new Error('Código do Protheus inválido.');
+if(errText.includes('status_chk'))throw new Error('Status inválido.');
+if(errText.includes('not-null'))throw new Error('Campos obrigatórios não preenchidos.');
 throw new Error('Falha ao enviar. Revise os dados ou tente em instantes.');
 }
 
