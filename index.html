@@ -1,5 +1,6 @@
+cat > /home/claude/index.html << 'HTMLEOF'
 <!DOCTYPE html>
-<!-- Premix Produtos · build 2026-06-01 -->
+<!-- Premix Produtos · build 2026-06-01-v2 -->
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -24,6 +25,8 @@ body{font-family:'Open Sans',sans-serif;background:var(--bg);color:var(--text);m
 .stitle{font-family:'Montserrat',sans-serif;font-size:.95rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:10px;margin-bottom:2px}
 .stitle .ic{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.9rem}
 .ssub{font-size:.78rem;color:var(--muted);margin-bottom:20px}
+.section-divider{height:1px;background:var(--border);margin:22px 0 18px;position:relative}
+.section-divider::before{content:attr(data-label);position:absolute;left:0;top:-9px;background:var(--card);padding:0 12px 0 0;font-family:'Montserrat',sans-serif;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
 .alert-box{background:#FFF8E1;border:1px solid #FFD54F;border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;font-size:.8rem;line-height:1.5;color:#5D4037;display:flex;gap:10px;align-items:flex-start}
 .alert-box.red{background:#FEE2E2;border-color:#EF9A9A;color:#B71C1C}
 .alert-box.blue{background:#E3F2FD;border-color:#90CAF9;color:#0D47A1}
@@ -37,10 +40,28 @@ body{font-family:'Open Sans',sans-serif;background:var(--bg);color:var(--text);m
 .fld input,.fld select,.fld textarea{padding:10px 12px;border:1.5px solid var(--border);border-radius:6px;font-family:'Open Sans',sans-serif;font-size:.88rem;color:var(--text);background:#FAFBF8;outline:none;transition:.2s;width:100%}
 .fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(0,166,80,.1);background:#fff}
 .fld input.err,.fld select.err,.fld textarea.err{border-color:var(--red);box-shadow:0 0 0 3px rgba(217,48,37,.07)}
-.fld textarea{resize:vertical;min-height:80px}
+.fld textarea{resize:vertical;min-height:70px}
 .fld .hint{font-size:.7rem;color:var(--muted)}
 .fld .emsg{font-size:.7rem;color:var(--red);display:none}
 .fld .emsg.show{display:block}
+.rg{display:flex;gap:8px}
+.ro{flex:1;position:relative;min-width:0}
+.ro input[type=radio]{position:absolute;opacity:0;pointer-events:none}
+.ro label{display:block;padding:11px 12px;border:1.5px solid var(--border);border-radius:6px;text-align:center;cursor:pointer;font-size:.82rem;font-weight:600;transition:.2s;background:#FAFBF8;font-family:'Montserrat',sans-serif;letter-spacing:.3px;line-height:1.2}
+.ro label small{display:block;font-size:.66rem;color:var(--muted);font-weight:400;margin-top:2px;text-transform:none;letter-spacing:0;font-family:'Open Sans',sans-serif}
+.ro input:checked+label{border-color:var(--green);background:rgba(0,166,80,.06);color:var(--green-d);box-shadow:0 1px 4px rgba(0,166,80,.12)}
+.ro input:checked+label small{color:var(--green-d)}
+@media(max-width:560px){.rg{flex-direction:column}}
+.item-card{background:#FAFBF8;border:1.5px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;position:relative;animation:slideIn .3s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.item-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:1px dashed var(--border)}
+.item-title{font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--green-d);display:flex;align-items:center;gap:10px}
+.item-num{width:26px;height:26px;background:var(--green);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.74rem;font-weight:800;flex-shrink:0}
+.item-remove{background:transparent;border:1.5px solid var(--border);color:var(--muted);width:32px;height:32px;border-radius:6px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0}
+.item-remove:hover{border-color:var(--red);color:var(--red);background:#fff}
+.add-item-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px;background:transparent;border:2px dashed var(--green);color:var(--green-d);font-family:'Montserrat',sans-serif;font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border-radius:8px;cursor:pointer;transition:.2s;margin-top:4px}
+.add-item-btn:hover{background:rgba(0,166,80,.05);border-color:var(--green-d);transform:translateY(-1px)}
+.add-item-btn .plus{width:24px;height:24px;background:var(--green);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:800}
 .btns{display:flex;justify-content:space-between;gap:10px;margin-top:22px;flex-wrap:wrap}
 .btn{padding:11px 26px;border-radius:6px;font-family:'Montserrat',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:.2s;border:none;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.5px}
 .btn2{background:var(--bg);color:var(--muted);border:1.5px solid var(--border)}
@@ -61,6 +82,7 @@ body{font-family:'Open Sans',sans-serif;background:var(--bg);color:var(--text);m
 .review-title{font-family:'Montserrat',sans-serif;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--green-d);margin:0;padding:14px 20px 13px;background:linear-gradient(180deg,#fafbf8 0%,#f4f7ed 100%);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
 .review-title .rt-icon{width:26px;height:26px;border-radius:7px;background:rgba(0,166,80,.1);display:inline-flex;align-items:center;justify-content:center;color:var(--green-d);flex-shrink:0}
 .review-title .rt-icon svg{width:14px;height:14px}
+.review-title .rt-badge{margin-left:auto;background:var(--green);color:#fff;padding:3px 9px;border-radius:10px;font-size:.62rem;letter-spacing:.4px}
 .review-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:6px 20px 14px}
 @media(max-width:600px){.review-grid{grid-template-columns:1fr}.review-title{padding:12px 16px}.review-grid{padding:6px 16px 12px}}
 .review-item{padding:11px 0;border-bottom:1px solid #f0f2eb;display:flex;flex-direction:column;gap:3px;min-width:0}
@@ -73,7 +95,6 @@ body{font-family:'Open Sans',sans-serif;background:var(--bg);color:var(--text);m
 .review-item .rl{font-size:.62rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.6px;font-family:'Montserrat',sans-serif}
 .review-item .rv{font-size:.92rem;font-weight:600;color:var(--dark);word-break:break-word;line-height:1.35;font-family:'Open Sans',sans-serif;white-space:pre-wrap}
 .review-item .rv a{color:var(--green-d);text-decoration:none;border-bottom:1px dashed var(--green)}
-.review-item .rv a:hover{color:var(--green)}
 .success-screen{display:none;background:var(--card);border-radius:var(--radius);padding:48px 32px;text-align:center;border:1px solid var(--border);box-shadow:0 4px 20px rgba(0,0,0,.06);position:relative;overflow:hidden;margin-top:24px}
 .success-screen.show{display:block;animation:fadeUp .4s ease}
 .success-screen::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--green),var(--gold))}
@@ -81,8 +102,10 @@ body{font-family:'Open Sans',sans-serif;background:var(--bg);color:var(--text);m
 @keyframes pop{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
 .success-screen h2{font-family:'Montserrat',sans-serif;font-size:1.3rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
 .success-screen p{font-size:.9rem;color:var(--muted);max-width:420px;margin:0 auto 14px}
-.success-screen .protocolo-tag{display:inline-block;padding:8px 18px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.4px;color:var(--dark);margin-bottom:22px}
+.success-screen .protocolo-tag{display:inline-block;padding:8px 18px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.4px;color:var(--dark);margin-bottom:8px}
 .success-screen .protocolo-tag strong{color:var(--green-d)}
+.success-screen .summary-tag{display:block;font-size:.78rem;color:var(--muted);margin-bottom:22px}
+.success-screen .summary-tag strong{color:var(--green-d)}
 .success-screen .btn-stack{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 .spinner{display:inline-block;width:16px;height:16px;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -98,40 +121,43 @@ body{font-family:'Open Sans',sans-serif;background:var(--bg);color:var(--text);m
 
 <div class="hdr">
 <img src="https://premix.com.br/wp-content/uploads/2023/06/Logotipo_Premix_Positivo_Com-Bandeira.png" alt="Premix" class="hdr-logo">
-<h1>Cadastro de Produto</h1>
-<p>Núcleo Fiscal — Solicitação de novo produto</p>
+<h1 id="hdrTitle">Cadastro de Produto</h1>
+<p>Núcleo Fiscal — Solicitação de produto</p>
 </div>
 <div class="hdr-stripe"></div>
 
 <form id="frm" novalidate>
 
+<!-- ETAPA 1: PREENCHIMENTO -->
 <div class="sec on" id="s1">
-<div class="stitle"><span class="ic" style="background:#E8F5E9">📦</span>Dados do Produto</div>
-<p class="ssub">Preencha os dados do produto que deseja cadastrar no sistema</p>
+<div class="stitle"><span class="ic" style="background:#E8F5E9" id="s1Ic">📦</span><span id="s1Title">Dados da Solicitação</span></div>
+<p class="ssub">Preencha os dados abaixo. Você pode adicionar vários produtos numa mesma solicitação.</p>
 
-<div class="alert-box blue"><span class="ab-icon">🔒</span><div>Esse formulário é de <strong>uso interno Premix</strong>. Apenas e-mails <strong>@premix.com.br</strong> podem solicitar cadastros. Sua solicitação será analisada pelo Núcleo Fiscal e você receberá retorno por e-mail.</div></div>
+<div class="alert-box blue"><span class="ab-icon">🔒</span><div>Esse formulário é de <strong>uso interno Premix</strong>. Apenas e-mails <strong>@premix.com.br</strong> podem solicitar. Sua solicitação será analisada pelo Núcleo Fiscal e você receberá retorno por e-mail.</div></div>
 
+<!-- Solicitante -->
 <div class="grid">
-
+<div class="fld full"><label>Nome do Solicitante <span class="req">*</span></label><input name="nome_solicitante" placeholder="Seu nome completo" autocomplete="name" maxlength="120"><span class="emsg">Informe seu nome</span></div>
 <div class="fld full"><label>E-mail do Solicitante <span class="req">*</span></label><input name="email_solicitante" type="email" placeholder="seu.nome@premix.com.br" autocomplete="email" maxlength="120"><span class="hint">Apenas e-mails corporativos @premix.com.br</span><span class="emsg">Use um e-mail @premix.com.br válido</span></div>
-
-<div class="fld full"><label>Descrição Completa do Produto <span class="req">*</span></label><textarea name="descricao_produto" placeholder="Ex: Disco de corte para aço 12 x 1/8 x 5/8&#10;&#10;Inclua especificações, modelo, dimensões. Pode listar vários itens — um por linha." maxlength="2000"></textarea><span class="hint">Mínimo 3 caracteres. Pode incluir múltiplos itens, um por linha.</span><span class="emsg">Informe a descrição do produto</span></div>
-
-<div class="fld full"><label>Qual a Finalidade do Produto? <span class="req">*</span></label><textarea name="finalidade" placeholder="Ex: Manutenção da linha de produção, uso no silo externo, escritório..." maxlength="1000"></textarea><span class="hint">Onde / como será utilizado</span><span class="emsg">Informe a finalidade</span></div>
-
-<div class="fld"><label>NCM do Produto</label><input name="ncm" placeholder="0000.00.00" maxlength="10"><span class="hint">Se souber. Caso contrário, deixe em branco</span></div>
-
-<div class="fld"><label>Unidade de Medida <span class="req">*</span></label><select name="unidade_medida"><option value="">Selecione</option><option value="UN">Unidade (UN)</option><option value="PC">Peça (PC)</option><option value="KIT">Kit</option><option value="CX">Caixa (CX)</option><option value="PCT">Pacote (PCT)</option><option value="PAR">Par</option><option value="M">Metro (M)</option><option value="M2">Metro quadrado (M²)</option><option value="M3">Metro cúbico (M³)</option><option value="KG">Quilograma (KG)</option><option value="G">Grama (G)</option><option value="L">Litro (L)</option><option value="ML">Mililitro (ML)</option><option value="ROLO">Rolo</option><option value="FRASCO">Frasco</option><option value="OUTRO">Outro</option></select><span class="emsg">Selecione a unidade</span></div>
-
-<div class="fld full"><label>Principais Marcas</label><input name="principais_marcas" placeholder="Ex: Bosch, 3M, Starrett, Toyota" maxlength="500"><span class="hint">Se houver preferência ou referência de marca, indique. Separe múltiplas por vírgula.</span></div>
-
-<div class="fld full"><label>Link da Imagem do Produto</label><input name="imagem_url" type="url" placeholder="https://drive.google.com/..." maxlength="2000"><span class="hint">Cole um link público do Google Drive, Dropbox ou outro repositório</span><span class="emsg">URL inválida (use https://...)</span></div>
-
 </div>
+
+<!-- Tipo de Solicitação -->
+<div class="section-divider" data-label="Tipo de Solicitação"></div>
+<div class="rg">
+<div class="ro"><input type="radio" name="tipo_solicitacao" id="ts1" value="CADASTRO" checked onchange="updateTipo()"><label for="ts1">📦 Cadastrar Novo<small>Produto ainda não existe no Protheus</small></label></div>
+<div class="ro"><input type="radio" name="tipo_solicitacao" id="ts2" value="DESBLOQUEIO" onchange="updateTipo()"><label for="ts2">🔓 Desbloquear Existente<small>Produto já existe mas está bloqueado</small></label></div>
+</div>
+
+<!-- Itens dinâmicos -->
+<div class="section-divider" data-label="Itens da Solicitação" style="margin-top:26px"></div>
+<div id="itemsContainer"></div>
+
+<button type="button" class="add-item-btn" onclick="adicionarItem()"><span class="plus">+</span><span id="addBtnLabel">Adicionar outro produto</span></button>
 
 <div class="btns" style="justify-content:flex-end"><button type="button" class="btn btn1" onclick="next()">Revisar →</button></div>
 </div>
 
+<!-- ETAPA 2: REVISÃO -->
 <div class="sec" id="s2">
 <div class="stitle"><span class="ic" style="background:#E8F5E9">✓</span>Revisar e Confirmar</div>
 <p class="ssub">Confira todos os dados antes de enviar. Se precisar corrigir, clique em "Voltar e Editar".</p>
@@ -143,11 +169,13 @@ body{font-family:'Open Sans',sans-serif;background:var(--bg);color:var(--text);m
 
 </form>
 
+<!-- TELA DE SUCESSO -->
 <div class="success-screen" id="successScreen">
 <div class="check-big">✓</div>
-<h2>Solicitação Enviada!</h2>
-<p>Sua solicitação de cadastro de produto foi recebida com sucesso. O Núcleo Fiscal Premix irá analisar e dar retorno por e-mail em breve.</p>
+<h2 id="successTitle">Solicitação Enviada!</h2>
+<p id="successMsg">Sua solicitação foi recebida. O Núcleo Fiscal Premix irá analisar e dar retorno por e-mail em breve.</p>
 <div class="protocolo-tag" id="protocoloTag">Protocolo: <strong id="protocolo">—</strong></div>
+<div class="summary-tag" id="summaryTag"></div>
 <div class="btn-stack"><button class="btn btn1" onclick="novoFormulario()">+ Nova Solicitação</button></div>
 </div>
 
@@ -160,9 +188,16 @@ const SB_URL='https://frudrwxdygfticgcwigv.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZydWRyd3hkeWdmdGljZ2N3aWd2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxMDg4NzgsImV4cCI6MjA5MzY4NDg3OH0.2laDHYhQEiBu0K9iQCiYtf2T3_Q21rnJAAsNByUKJ10';
 
 const EMAIL_RE=/^[A-Za-z0-9._%+\-]+@premix\.com\.br$/i;
+const UNIDADES=[
+['UN','Unidade (UN)'],['PC','Peça (PC)'],['KIT','Kit'],['CX','Caixa (CX)'],
+['PCT','Pacote (PCT)'],['PAR','Par'],['M','Metro (M)'],['M2','Metro quadrado (M²)'],
+['M3','Metro cúbico (M³)'],['KG','Quilograma (KG)'],['G','Grama (G)'],['L','Litro (L)'],
+['ML','Mililitro (ML)'],['ROLO','Rolo'],['FRASCO','Frasco'],['OUTRO','Outro']
+];
 
 let cur=1;
 
+/* ==================== HELPERS ==================== */
 function showToast(msg,duration=4500,ok=false){
 const t=document.getElementById('toast');
 t.textContent=msg;
@@ -170,79 +205,215 @@ t.className='toast show'+(ok?' ok':'');
 setTimeout(()=>t.classList.remove('show'),duration);
 }
 
-/* Sanitização básica */
 function clean(v){
 if(v==null)return null;
 const s=String(v).trim().replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g,'').replace(/<[^>]*>/g,'');
 return s.length?s:null;
 }
 
-/* Máscara NCM */
-const ncmInput=document.querySelector('[name=ncm]');
-ncmInput.addEventListener('input',function(){
-let v=this.value.replace(/\D/g,'').substring(0,8);
+function esc(s){
+return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function isUrl(s){
+if(!s)return false;
+try{const u=new URL(s);return /^https?:$/.test(u.protocol);}catch{return false;}
+}
+
+function maskNCM(input){
+let v=input.value.replace(/\D/g,'').substring(0,8);
 if(v.length>6)v=v.replace(/(\d{4})(\d{2})(\d{0,2})/,'$1.$2.$3');
 else if(v.length>4)v=v.replace(/(\d{4})(\d{0,4})/,'$1.$2');
-this.value=v.replace(/\.$/,'');
-});
+input.value=v.replace(/\.$/,'');
+}
 
-/* Validação */
+function getTipo(){
+return document.querySelector('[name=tipo_solicitacao]:checked')?.value||'CADASTRO';
+}
+
+/* UUID v4 simples (sem dependência de crypto.randomUUID que pode não estar disponível em iframes) */
+function uuidv4(){
+if(crypto && crypto.randomUUID){try{return crypto.randomUUID();}catch{}}
+return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{
+const r=Math.random()*16|0,v=c==='x'?r:(r&0x3|0x8);
+return v.toString(16);
+});
+}
+
+/* ==================== ITENS DINÂMICOS ==================== */
+function itemTemplate(idx,tipo){
+const num=idx+1;
+const showRemove=idx>0;
+const removeBtn=showRemove?'<button type="button" class="item-remove" onclick="removerItem(this)" title="Remover este item">✕</button>':'';
+
+let titleLabel=tipo==='CADASTRO'?'Produto':'Desbloqueio';
+
+let camposHtml;
+if(tipo==='CADASTRO'){
+let unidadesOptions='<option value="">Selecione</option>'+UNIDADES.map(([v,l])=>`<option value="${v}">${l}</option>`).join('');
+camposHtml=`
+<div class="grid">
+<div class="fld full"><label>Descrição Completa <span class="req">*</span></label><textarea data-field="descricao_produto" placeholder="Ex: Disco de corte para aço 12 x 1/8 x 5/8" maxlength="2000"></textarea><span class="hint">Inclua especificações, modelo, dimensões</span><span class="emsg">Informe a descrição</span></div>
+<div class="fld full"><label>Finalidade <span class="req">*</span></label><textarea data-field="finalidade" placeholder="Ex: Manutenção da linha de produção" maxlength="1000"></textarea><span class="hint">Onde / como será utilizado</span><span class="emsg">Informe a finalidade</span></div>
+<div class="fld"><label>NCM</label><input data-field="ncm" placeholder="0000.00.00" maxlength="10" oninput="maskNCM(this)"><span class="hint">Opcional</span></div>
+<div class="fld"><label>Unidade de Medida <span class="req">*</span></label><select data-field="unidade_medida">${unidadesOptions}</select><span class="emsg">Selecione a unidade</span></div>
+<div class="fld full"><label>Principais Marcas</label><input data-field="principais_marcas" placeholder="Ex: Bosch, 3M, Starrett" maxlength="500"><span class="hint">Opcional — separe por vírgula</span></div>
+<div class="fld full"><label>Link da Imagem</label><input data-field="imagem_url" type="url" placeholder="https://drive.google.com/..." maxlength="2000"><span class="hint">Opcional — link público do Google Drive, Dropbox, etc.</span><span class="emsg">URL inválida (use https://...)</span></div>
+</div>`;
+}else{
+camposHtml=`
+<div class="grid">
+<div class="fld full"><label>Código no Protheus <span class="req">*</span></label><input data-field="codigo_protheus" placeholder="Ex: 12345 ou ABC-123" maxlength="50"><span class="hint">Código do item conforme cadastrado no sistema Protheus</span><span class="emsg">Informe o código</span></div>
+<div class="fld full"><label>Motivo do Desbloqueio <span class="req">*</span></label><textarea data-field="motivo" placeholder="Explique por que precisa desbloquear este produto..." maxlength="1000"></textarea><span class="hint">Quanto mais contexto, mais rápido o atendimento</span><span class="emsg">Informe o motivo</span></div>
+</div>`;
+}
+
+return `<div class="item-card" data-idx="${idx}">
+<div class="item-head">
+<div class="item-title"><span class="item-num">${num}</span><span class="item-num-label">${titleLabel} #${num}</span></div>
+${removeBtn}
+</div>
+${camposHtml}
+</div>`;
+}
+
+function adicionarItem(){
+const tipo=getTipo();
+const container=document.getElementById('itemsContainer');
+const idx=container.children.length;
+container.insertAdjacentHTML('beforeend',itemTemplate(idx,tipo));
+const newCard=container.lastElementChild;
+if(idx>0){
+newCard.scrollIntoView({behavior:'smooth',block:'center'});
+const first=newCard.querySelector('[data-field]');
+if(first)setTimeout(()=>first.focus(),300);
+}
+}
+
+function removerItem(btn){
+const card=btn.closest('.item-card');
+card.style.opacity='0';
+card.style.transform='translateY(-4px)';
+card.style.transition='.2s';
+setTimeout(()=>{card.remove();renumerarItems();},180);
+}
+
+function renumerarItems(){
+document.querySelectorAll('.item-card').forEach((card,idx)=>{
+card.dataset.idx=idx;
+const numEl=card.querySelector('.item-num');
+const labelEl=card.querySelector('.item-num-label');
+if(numEl)numEl.textContent=idx+1;
+if(labelEl){
+const txt=labelEl.textContent;
+labelEl.textContent=txt.replace(/#\d+$/,'#'+(idx+1));
+}
+const removeBtn=card.querySelector('.item-remove');
+if(idx===0 && removeBtn)removeBtn.remove();
+});
+}
+
+function updateTipo(){
+const tipo=getTipo();
+const ic=document.getElementById('s1Ic');
+const title=document.getElementById('s1Title');
+const hdr=document.getElementById('hdrTitle');
+const addLabel=document.getElementById('addBtnLabel');
+
+if(tipo==='CADASTRO'){
+ic.textContent='📦';
+title.textContent='Dados da Solicitação';
+hdr.textContent='Cadastro de Produto';
+addLabel.textContent='Adicionar outro produto';
+}else{
+ic.textContent='🔓';
+title.textContent='Dados do Desbloqueio';
+hdr.textContent='Desbloqueio de Produto';
+addLabel.textContent='Adicionar outro desbloqueio';
+}
+
+/* Recriar itens com o novo tipo */
+const container=document.getElementById('itemsContainer');
+const count=Math.max(1,container.children.length);
+container.innerHTML='';
+for(let i=0;i<count;i++){
+container.insertAdjacentHTML('beforeend',itemTemplate(i,tipo));
+}
+}
+
+/* ==================== VALIDAÇÃO ==================== */
 function clearErrors(){
-document.querySelectorAll('.fld input, .fld textarea, .fld select').forEach(e=>e.classList.remove('err'));
+document.querySelectorAll('input, textarea, select').forEach(e=>e.classList.remove('err'));
 document.querySelectorAll('.emsg').forEach(e=>e.classList.remove('show'));
 }
 
-function setError(field,show=true){
-const f=document.querySelector('[name="'+field+'"]');
-if(!f)return null;
-const em=f.closest('.fld').querySelector('.emsg');
-if(show){f.classList.add('err');if(em)em.classList.add('show');}
-else{f.classList.remove('err');if(em)em.classList.remove('show');}
-return f;
+function setErrEl(el,emsgText){
+el.classList.add('err');
+const emsg=el.closest('.fld')?.querySelector('.emsg');
+if(emsg){
+if(emsgText)emsg.textContent=emsgText;
+emsg.classList.add('show');
+}
 }
 
 function validateAll(){
 clearErrors();
-let ok=true, firstErr=null;
-const required=['email_solicitante','descricao_produto','finalidade','unidade_medida'];
+let ok=true,firstErr=null;
+const tipo=getTipo();
 
-required.forEach(name=>{
-const f=document.querySelector('[name="'+name+'"]');
-if(!f.value.trim()){
-setError(name,true);
-if(!firstErr)firstErr=f;
+/* Solicitante */
+const nome=document.querySelector('[name=nome_solicitante]');
+if(!nome.value.trim()){setErrEl(nome);if(!firstErr)firstErr=nome;ok=false;}
+
+const email=document.querySelector('[name=email_solicitante]');
+const emailVal=email.value.trim();
+if(!emailVal||!EMAIL_RE.test(emailVal)){setErrEl(email);if(!firstErr)firstErr=email;ok=false;}
+
+/* Itens */
+const cards=document.querySelectorAll('.item-card');
+if(cards.length===0){
+showToast('⚠️ Adicione pelo menos um item');
+return false;
+}
+
+const requiredFields=tipo==='CADASTRO'
+?['descricao_produto','finalidade','unidade_medida']
+:['codigo_protheus','motivo'];
+
+cards.forEach(card=>{
+requiredFields.forEach(field=>{
+const el=card.querySelector(`[data-field="${field}"]`);
+if(!el)return;
+if(!el.value.trim()){
+setErrEl(el);
+if(!firstErr)firstErr=el;
 ok=false;
 }
 });
 
-/* E-mail @premix.com.br */
-const email=document.querySelector('[name=email_solicitante]');
-if(email.value.trim() && !EMAIL_RE.test(email.value.trim())){
-setError('email_solicitante',true);
-if(!firstErr)firstErr=email;
-ok=false;
-}
-
-/* Descrição mínimo 3 chars */
-const desc=document.querySelector('[name=descricao_produto]');
-if(desc.value.trim() && desc.value.trim().length<3){
-setError('descricao_produto',true);
+/* Validações específicas CADASTRO */
+if(tipo==='CADASTRO'){
+const desc=card.querySelector('[data-field="descricao_produto"]');
+if(desc && desc.value.trim() && desc.value.trim().length<3){
+setErrEl(desc,'Mínimo 3 caracteres');
 if(!firstErr)firstErr=desc;
 ok=false;
 }
-
-/* URL imagem se informada */
-const img=document.querySelector('[name=imagem_url]');
-if(img.value.trim()){
-try{
-const u=new URL(img.value.trim());
-if(!/^https?:$/.test(u.protocol))throw new Error();
-}catch{
-setError('imagem_url',true);
+const img=card.querySelector('[data-field="imagem_url"]');
+if(img && img.value.trim() && !isUrl(img.value.trim())){
+setErrEl(img);
 if(!firstErr)firstErr=img;
 ok=false;
 }
+}else{
+const mot=card.querySelector('[data-field="motivo"]');
+if(mot && mot.value.trim() && mot.value.trim().length<3){
+setErrEl(mot,'Mínimo 3 caracteres');
+if(!firstErr)firstErr=mot;
+ok=false;
 }
+}
+});
 
 if(!ok){
 showToast('⚠️ Revise os campos destacados');
@@ -251,6 +422,7 @@ if(firstErr)firstErr.focus();
 return ok;
 }
 
+/* ==================== NAVEGAÇÃO ==================== */
 function go(s){
 document.querySelectorAll('.sec').forEach(e=>e.classList.remove('on'));
 document.getElementById('s'+s).classList.add('on');
@@ -267,73 +439,38 @@ setTimeout(()=>{btn.disabled=false;btn.innerHTML='✓ Confirmar e Enviar';},900)
 window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function next(){
-if(cur===1 && !validateAll())return;
-go(cur+1);
-}
+function next(){if(cur===1 && !validateAll())return;go(cur+1);}
+function prev(){if(cur>1)go(cur-1);}
 
-function prev(){
-if(cur>1)go(cur-1);
-}
-
-/* Ícones SVG */
+/* ==================== REVIEW ==================== */
 const ICONS={
 box:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>',
+unlock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>',
 mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg>',
 check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
-image:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'
+image:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>',
+tag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>'
 };
 
-function esc(s){
-return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function coletarItems(){
+const items=[];
+document.querySelectorAll('.item-card').forEach(card=>{
+const item={};
+card.querySelectorAll('[data-field]').forEach(input=>{
+const field=input.dataset.field;
+const val=clean(input.value);
+if(val)item[field]=val;
+});
+items.push(item);
+});
+return items;
 }
 
-function isUrl(s){
-if(!s)return false;
-try{const u=new URL(s);return /^https?:$/.test(u.protocol);}catch{return false;}
-}
-
-function buildReview(){
-const f=new FormData(document.getElementById('frm'));
-const data={};
-for(const[k,v] of f.entries())if(v && String(v).trim())data[k]=String(v).trim();
-
-const solicitanteItems=[
-['E-mail do Solicitante',data.email_solicitante]
-];
-
-const produtoItems=[
-['Descrição',data.descricao_produto,true],
-['Finalidade',data.finalidade,true],
-['NCM',data.ncm],
-['Unidade de Medida',data.unidade_medida],
-['Principais Marcas',data.principais_marcas]
-];
-
-const imagemItems=[
-['Link da Imagem',data.imagem_url,true]
-];
-
-let html='<div class="review-intro"><div class="ri-icon">'+ICONS.check+'</div><div class="ri-text"><div class="ri-title">Confira antes de enviar</div><div class="ri-sub">Revise os dados informados. Após envio, ajustes só serão feitos via Núcleo Fiscal.</div></div></div>';
-
-/* Bloco Solicitante */
-html+=renderBlock('Solicitante',ICONS.mail,solicitanteItems);
-
-/* Bloco Produto */
-html+=renderBlock('Produto',ICONS.box,produtoItems);
-
-/* Bloco Imagem (só se informada) */
-if(data.imagem_url){
-html+=renderBlock('Imagem',ICONS.image,imagemItems);
-}
-
-document.getElementById('reviewContent').innerHTML=html;
-}
-
-function renderBlock(title,icon,items){
-const valid=items.filter(([,v])=>v && String(v).trim() && String(v).trim()!=='-');
+function renderBlock(title,icon,items,badge){
+const valid=items.filter(([,v])=>v && String(v).trim());
 if(valid.length===0)return '';
-let h='<div class="review-box"><div class="review-title"><span class="rt-icon">'+icon+'</span>'+esc(title)+'</div><div class="review-grid">';
+const badgeHtml=badge?`<span class="rt-badge">${esc(badge)}</span>`:'';
+let h='<div class="review-box"><div class="review-title"><span class="rt-icon">'+icon+'</span>'+esc(title)+badgeHtml+'</div><div class="review-grid">';
 valid.forEach(([label,value,fullWidth])=>{
 const cls='review-item'+(fullWidth?' full':'');
 let rendered=esc(value);
@@ -344,6 +481,55 @@ h+='</div></div>';
 return h;
 }
 
+function buildReview(){
+const tipo=getTipo();
+const nome=clean(document.querySelector('[name=nome_solicitante]').value);
+const email=clean(document.querySelector('[name=email_solicitante]').value);
+const items=coletarItems();
+
+let html='<div class="review-intro"><div class="ri-icon">'+ICONS.check+'</div><div class="ri-text"><div class="ri-title">Confira antes de enviar</div><div class="ri-sub">Revise os dados informados. Após o envio, ajustes só serão feitos via Núcleo Fiscal.</div></div></div>';
+
+/* Bloco Solicitante */
+const tipoLabel=tipo==='CADASTRO'?'📦 Cadastro de Novo Produto':'🔓 Desbloqueio de Produto';
+html+=renderBlock('Solicitante',ICONS.mail,[
+['Nome',nome],
+['E-mail',email],
+['Tipo de Solicitação',tipoLabel,true]
+]);
+
+/* Blocos de itens */
+items.forEach((item,idx)=>{
+const num=idx+1;
+let blockTitle,blockIcon,blockItems;
+if(tipo==='CADASTRO'){
+blockTitle='Produto #'+num;
+blockIcon=ICONS.box;
+blockItems=[
+['Descrição',item.descricao_produto,true],
+['Finalidade',item.finalidade,true],
+['NCM',item.ncm],
+['Unidade',item.unidade_medida],
+['Marcas',item.principais_marcas],
+['Imagem',item.imagem_url,true]
+];
+}else{
+blockTitle='Desbloqueio #'+num;
+blockIcon=ICONS.unlock;
+blockItems=[
+['Código no Protheus',item.codigo_protheus],
+['Motivo',item.motivo,true]
+];
+}
+html+=renderBlock(blockTitle,blockIcon,blockItems);
+});
+
+/* Resumo final */
+html+='<div class="review-box" style="background:#FAFBF8"><div class="review-title"><span class="rt-icon">'+ICONS.tag+'</span>Resumo<span class="rt-badge">'+items.length+(items.length===1?' item':' itens')+'</span></div><div style="padding:14px 20px;font-size:.85rem;color:var(--muted)">Esta solicitação contém <strong style="color:var(--dark)">'+items.length+'</strong> '+(items.length===1?'item':'itens')+' do tipo <strong style="color:var(--green-d)">'+(tipo==='CADASTRO'?'Cadastro':'Desbloqueio')+'</strong>.</div></div>';
+
+document.getElementById('reviewContent').innerHTML=html;
+}
+
+/* ==================== ENVIO ==================== */
 async function enviar(){
 const btn=document.getElementById('sbtn');
 if(!btn)return;
@@ -351,26 +537,48 @@ btn.disabled=true;
 btn.innerHTML='<span class="spinner"></span> ENVIANDO...';
 
 try{
-const f=new FormData(document.getElementById('frm'));
-const data={};
-for(const[k,v] of f.entries()){
-const val=clean(v);
-if(val)data[k]=val;
+const tipo=getTipo();
+const nome=clean(document.querySelector('[name=nome_solicitante]').value);
+const email=clean(document.querySelector('[name=email_solicitante]').value)?.toLowerCase();
+
+if(!nome)throw new Error('Informe o nome do solicitante.');
+if(!email || !EMAIL_RE.test(email))throw new Error('Use um e-mail @premix.com.br válido.');
+
+const items=coletarItems();
+if(items.length===0)throw new Error('Adicione pelo menos um item.');
+
+/* UUID compartilhado por todos os itens da mesma solicitação */
+const solicitacaoId=uuidv4();
+
+/* Construir array de registros */
+const records=items.map(item=>{
+const base={
+nome_solicitante:nome,
+email_solicitante:email,
+tipo_solicitacao:tipo,
+solicitacao_id:solicitacaoId,
+status:'PENDENTE'
+};
+if(tipo==='CADASTRO'){
+return {
+...base,
+descricao_produto:item.descricao_produto,
+finalidade:item.finalidade,
+ncm:item.ncm||null,
+unidade_medida:item.unidade_medida,
+principais_marcas:item.principais_marcas||null,
+imagem_url:item.imagem_url||null
+};
+}else{
+return {
+...base,
+codigo_protheus:item.codigo_protheus,
+motivo:item.motivo
+};
 }
+});
 
-if(data.email_solicitante)data.email_solicitante=data.email_solicitante.toLowerCase();
-data.status='PENDENTE';
-
-/* Validação dupla email */
-if(!data.email_solicitante || !EMAIL_RE.test(data.email_solicitante)){
-throw new Error('Apenas e-mails @premix.com.br podem solicitar cadastros.');
-}
-
-if(!data.descricao_produto || !data.finalidade || !data.unidade_medida){
-throw new Error('Preencha todos os campos obrigatórios.');
-}
-
-console.log('Pacote pronto para o Supabase:',data);
+console.log('Pacote pronto para o Supabase:',records);
 
 const res=await fetch(SB_URL+'/rest/v1/produtos',{
 method:'POST',
@@ -380,7 +588,7 @@ headers:{
 'Content-Type':'application/json',
 'Prefer':'return=representation'
 },
-body:JSON.stringify(data)
+body:JSON.stringify(records)
 });
 
 if(!res.ok){
@@ -388,14 +596,22 @@ const errText=await res.text();
 console.error('Erro Supabase:',errText);
 if(errText.includes('Limite de cadastros'))throw new Error('Limite de envios por hora atingido. Aguarde antes de tentar novamente.');
 if(errText.includes('email_premix'))throw new Error('E-mail inválido. Use seu e-mail @premix.com.br.');
+if(errText.includes('coerencia_chk'))throw new Error('Dados incompletos. Verifique todos os campos obrigatórios.');
 if(errText.includes('descricao_len'))throw new Error('Descrição muito curta ou longa (3 a 2000 caracteres).');
 if(errText.includes('finalidade_len'))throw new Error('Finalidade muito curta ou longa (3 a 1000 caracteres).');
+if(errText.includes('motivo_len'))throw new Error('Motivo muito curto ou longo (3 a 1000 caracteres).');
+if(errText.includes('protheus_len'))throw new Error('Código do Protheus inválido.');
 throw new Error('Falha ao enviar. Revise os dados ou tente em instantes.');
 }
 
-const result=await res.json();
-const protocolo=(result[0]?.id||'').slice(0,8).toUpperCase();
-document.getElementById('protocolo').textContent=protocolo||'—';
+/* Sucesso */
+document.getElementById('protocolo').textContent=solicitacaoId.slice(0,8).toUpperCase();
+const tipoTxt=tipo==='CADASTRO'?'produto'+(items.length>1?'s':''):'desbloqueio'+(items.length>1?'s':'');
+document.getElementById('summaryTag').innerHTML='<strong>'+items.length+'</strong> '+tipoTxt+' '+(items.length>1?'enviados':'enviado')+' nesta solicitação';
+document.getElementById('successTitle').textContent=tipo==='CADASTRO'?'Solicitação Enviada!':'Desbloqueio Solicitado!';
+document.getElementById('successMsg').textContent=tipo==='CADASTRO'
+?'Sua solicitação de cadastro foi recebida. O Núcleo Fiscal Premix irá analisar e dar retorno por e-mail em breve.'
+:'Sua solicitação de desbloqueio foi recebida. O Núcleo Fiscal Premix irá analisar e dar retorno por e-mail em breve.';
 
 document.getElementById('frm').classList.add('hide');
 document.getElementById('successScreen').classList.add('show');
@@ -415,9 +631,25 @@ document.getElementById('frm').reset();
 document.getElementById('frm').classList.remove('hide');
 document.getElementById('successScreen').classList.remove('show');
 clearErrors();
+/* Reset estado */
+cur=1;
+document.querySelector('[name=tipo_solicitacao][value=CADASTRO]').checked=true;
+updateTipo();
 go(1);
 window.scrollTo({top:0,behavior:'smooth'});
 }
+
+/* ==================== INIT ==================== */
+document.addEventListener('DOMContentLoaded',()=>{
+adicionarItem();
+});
 </script>
 </body>
 </html>
+HTMLEOF
+echo "OK"
+wc -l /home/claude/index.html
+Saída
+
+OK
+647 /home/claude/index.html
