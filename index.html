@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<!-- Premix Produtos · build 2026-06-01 -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastro de Produto — Premix</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#00A650;--green-d:#008C44;--green-l:#E8F5E9;--dark:#1A1A1A;--dark2:#2D2D2D;--gold:#C8A951;--bg:#F5F6F0;--card:#FFFFFF;--text:#1A1A1A;--muted:#6B7265;--border:#D8DDD2;--red:#D93025;--radius:8px}
+html{font-size:15px;scroll-behavior:smooth}
+body{font-family:'Open Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px 80px}
+.hdr{background:var(--dark);padding:28px 28px 24px;text-align:center;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--green),var(--gold),var(--green))}
+.hdr h1{font-family:'Montserrat',sans-serif;font-size:1.45rem;font-weight:800;color:#fff;letter-spacing:.5px;text-transform:uppercase}
+.hdr p{color:rgba(255,255,255,.55);font-size:.82rem;margin-top:4px}
+.hdr-logo{height:48px;margin-bottom:14px}
+.hdr-stripe{height:3px;background:var(--green);margin-bottom:24px}
+.sec{background:var(--card);border-radius:var(--radius);padding:26px 22px;margin-bottom:14px;border:1px solid var(--border);display:none;animation:fadeUp .3s ease;box-shadow:0 1px 4px rgba(0,0,0,.03)}
+.sec.on{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.stitle{font-family:'Montserrat',sans-serif;font-size:.95rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:10px;margin-bottom:2px}
+.stitle .ic{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.ssub{font-size:.78rem;color:var(--muted);margin-bottom:20px}
+.alert-box{background:#FFF8E1;border:1px solid #FFD54F;border-radius:var(--radius);padding:14px 16px;margin-bottom:16px;font-size:.8rem;line-height:1.5;color:#5D4037;display:flex;gap:10px;align-items:flex-start}
+.alert-box.red{background:#FEE2E2;border-color:#EF9A9A;color:#B71C1C}
+.alert-box.blue{background:#E3F2FD;border-color:#90CAF9;color:#0D47A1}
+.ab-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid .full{grid-column:1/-1}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+.fld{display:flex;flex-direction:column;gap:4px}
+.fld label{font-size:.75rem;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:.3px;font-family:'Montserrat',sans-serif}
+.fld label .req{color:var(--green)}
+.fld input,.fld select,.fld textarea{padding:10px 12px;border:1.5px solid var(--border);border-radius:6px;font-family:'Open Sans',sans-serif;font-size:.88rem;color:var(--text);background:#FAFBF8;outline:none;transition:.2s;width:100%}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(0,166,80,.1);background:#fff}
+.fld input.err,.fld select.err,.fld textarea.err{border-color:var(--red);box-shadow:0 0 0 3px rgba(217,48,37,.07)}
+.fld textarea{resize:vertical;min-height:80px}
+.fld .hint{font-size:.7rem;color:var(--muted)}
+.fld .emsg{font-size:.7rem;color:var(--red);display:none}
+.fld .emsg.show{display:block}
+.btns{display:flex;justify-content:space-between;gap:10px;margin-top:22px;flex-wrap:wrap}
+.btn{padding:11px 26px;border-radius:6px;font-family:'Montserrat',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:.2s;border:none;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.5px}
+.btn2{background:var(--bg);color:var(--muted);border:1.5px solid var(--border)}
+.btn2:hover{background:#E4E8DF}
+.btn1{background:var(--green);color:#fff;box-shadow:0 2px 8px rgba(0,166,80,.25)}
+.btn1:hover{background:var(--green-d);transform:translateY(-1px)}
+.btns3{background:var(--dark);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.btns3:hover{background:var(--dark2);transform:translateY(-1px)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
+.review-intro{background:linear-gradient(135deg,#fafbf8 0%,#f0f5ea 100%);border:1px solid var(--border);border-left:4px solid var(--green);border-radius:10px;padding:18px 22px;margin-bottom:20px;display:flex;align-items:center;gap:14px}
+.review-intro .ri-icon{width:42px;height:42px;flex-shrink:0;border-radius:10px;background:#fff;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--green-d)}
+.review-intro .ri-icon svg{width:22px;height:22px}
+.review-intro .ri-text{flex:1}
+.review-intro .ri-title{font-family:'Montserrat',sans-serif;font-weight:800;font-size:.85rem;color:var(--dark);margin-bottom:2px}
+.review-intro .ri-sub{font-size:.74rem;color:var(--muted);line-height:1.45}
+.review-box{background:#fff;border:1px solid var(--border);border-radius:12px;padding:0;margin-bottom:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:box-shadow .2s}
+.review-box:hover{box-shadow:0 4px 14px rgba(0,0,0,.06)}
+.review-title{font-family:'Montserrat',sans-serif;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--green-d);margin:0;padding:14px 20px 13px;background:linear-gradient(180deg,#fafbf8 0%,#f4f7ed 100%);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.review-title .rt-icon{width:26px;height:26px;border-radius:7px;background:rgba(0,166,80,.1);display:inline-flex;align-items:center;justify-content:center;color:var(--green-d);flex-shrink:0}
+.review-title .rt-icon svg{width:14px;height:14px}
+.review-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:6px 20px 14px}
+@media(max-width:600px){.review-grid{grid-template-columns:1fr}.review-title{padding:12px 16px}.review-grid{padding:6px 16px 12px}}
+.review-item{padding:11px 0;border-bottom:1px solid #f0f2eb;display:flex;flex-direction:column;gap:3px;min-width:0}
+.review-grid .review-item:nth-last-child(-n+2){border-bottom:none}
+@media(max-width:600px){.review-grid .review-item:nth-last-child(1){border-bottom:none}.review-grid .review-item:nth-last-child(2){border-bottom:1px solid #f0f2eb}}
+.review-grid .review-item:nth-child(odd){padding-right:14px}
+.review-grid .review-item:nth-child(even){padding-left:14px;border-left:1px solid #f0f2eb}
+@media(max-width:600px){.review-grid .review-item:nth-child(even){padding-left:0;border-left:none}.review-grid .review-item:nth-child(odd){padding-right:0}}
+.review-item.full{grid-column:1/-1;padding-right:0!important;padding-left:0!important;border-left:none!important}
+.review-item .rl{font-size:.62rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.6px;font-family:'Montserrat',sans-serif}
+.review-item .rv{font-size:.92rem;font-weight:600;color:var(--dark);word-break:break-word;line-height:1.35;font-family:'Open Sans',sans-serif;white-space:pre-wrap}
+.review-item .rv a{color:var(--green-d);text-decoration:none;border-bottom:1px dashed var(--green)}
+.review-item .rv a:hover{color:var(--green)}
+.success-screen{display:none;background:var(--card);border-radius:var(--radius);padding:48px 32px;text-align:center;border:1px solid var(--border);box-shadow:0 4px 20px rgba(0,0,0,.06);position:relative;overflow:hidden;margin-top:24px}
+.success-screen.show{display:block;animation:fadeUp .4s ease}
+.success-screen::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--green),var(--gold))}
+.success-screen .check-big{width:72px;height:72px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:2rem;color:#fff;animation:pop .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+.success-screen h2{font-family:'Montserrat',sans-serif;font-size:1.3rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.success-screen p{font-size:.9rem;color:var(--muted);max-width:420px;margin:0 auto 14px}
+.success-screen .protocolo-tag{display:inline-block;padding:8px 18px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.4px;color:var(--dark);margin-bottom:22px}
+.success-screen .protocolo-tag strong{color:var(--green-d)}
+.success-screen .btn-stack{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.spinner{display:inline-block;width:16px;height:16px;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hide{display:none!important}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;padding:12px 20px;border-radius:8px;font-size:.85rem;font-weight:600;z-index:2000;display:none;box-shadow:0 4px 16px rgba(0,0,0,.2);max-width:90%}
+.toast.show{display:block;animation:slideUp .3s ease}
+.toast.ok{background:var(--green)}
+@keyframes slideUp{from{opacity:0;transform:translate(-50%,20px)}to{opacity:1;transform:translate(-50%,0)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+<img src="https://premix.com.br/wp-content/uploads/2023/06/Logotipo_Premix_Positivo_Com-Bandeira.png" alt="Premix" class="hdr-logo">
+<h1>Cadastro de Produto</h1>
+<p>Núcleo Fiscal — Solicitação de novo produto</p>
+</div>
+<div class="hdr-stripe"></div>
+
+<form id="frm" novalidate>
+
+<div class="sec on" id="s1">
+<div class="stitle"><span class="ic" style="background:#E8F5E9">📦</span>Dados do Produto</div>
+<p class="ssub">Preencha os dados do produto que deseja cadastrar no sistema</p>
+
+<div class="alert-box blue"><span class="ab-icon">🔒</span><div>Esse formulário é de <strong>uso interno Premix</strong>. Apenas e-mails <strong>@premix.com.br</strong> podem solicitar cadastros. Sua solicitação será analisada pelo Núcleo Fiscal e você receberá retorno por e-mail.</div></div>
+
+<div class="grid">
+
+<div class="fld full"><label>E-mail do Solicitante <span class="req">*</span></label><input name="email_solicitante" type="email" placeholder="seu.nome@premix.com.br" autocomplete="email" maxlength="120"><span class="hint">Apenas e-mails corporativos @premix.com.br</span><span class="emsg">Use um e-mail @premix.com.br válido</span></div>
+
+<div class="fld full"><label>Descrição Completa do Produto <span class="req">*</span></label><textarea name="descricao_produto" placeholder="Ex: Disco de corte para aço 12 x 1/8 x 5/8&#10;&#10;Inclua especificações, modelo, dimensões. Pode listar vários itens — um por linha." maxlength="2000"></textarea><span class="hint">Mínimo 3 caracteres. Pode incluir múltiplos itens, um por linha.</span><span class="emsg">Informe a descrição do produto</span></div>
+
+<div class="fld full"><label>Qual a Finalidade do Produto? <span class="req">*</span></label><textarea name="finalidade" placeholder="Ex: Manutenção da linha de produção, uso no silo externo, escritório..." maxlength="1000"></textarea><span class="hint">Onde / como será utilizado</span><span class="emsg">Informe a finalidade</span></div>
+
+<div class="fld"><label>NCM do Produto</label><input name="ncm" placeholder="0000.00.00" maxlength="10"><span class="hint">Se souber. Caso contrário, deixe em branco</span></div>
+
+<div class="fld"><label>Unidade de Medida <span class="req">*</span></label><select name="unidade_medida"><option value="">Selecione</option><option value="UN">Unidade (UN)</option><option value="PC">Peça (PC)</option><option value="KIT">Kit</option><option value="CX">Caixa (CX)</option><option value="PCT">Pacote (PCT)</option><option value="PAR">Par</option><option value="M">Metro (M)</option><option value="M2">Metro quadrado (M²)</option><option value="M3">Metro cúbico (M³)</option><option value="KG">Quilograma (KG)</option><option value="G">Grama (G)</option><option value="L">Litro (L)</option><option value="ML">Mililitro (ML)</option><option value="ROLO">Rolo</option><option value="FRASCO">Frasco</option><option value="OUTRO">Outro</option></select><span class="emsg">Selecione a unidade</span></div>
+
+<div class="fld full"><label>Principais Marcas</label><input name="principais_marcas" placeholder="Ex: Bosch, 3M, Starrett, Toyota" maxlength="500"><span class="hint">Se houver preferência ou referência de marca, indique. Separe múltiplas por vírgula.</span></div>
+
+<div class="fld full"><label>Link da Imagem do Produto</label><input name="imagem_url" type="url" placeholder="https://drive.google.com/..." maxlength="2000"><span class="hint">Cole um link público do Google Drive, Dropbox ou outro repositório</span><span class="emsg">URL inválida (use https://...)</span></div>
+
+</div>
+
+<div class="btns" style="justify-content:flex-end"><button type="button" class="btn btn1" onclick="next()">Revisar →</button></div>
+</div>
+
+<div class="sec" id="s2">
+<div class="stitle"><span class="ic" style="background:#E8F5E9">✓</span>Revisar e Confirmar</div>
+<p class="ssub">Confira todos os dados antes de enviar. Se precisar corrigir, clique em "Voltar e Editar".</p>
+
+<div id="reviewContent"></div>
+
+<div class="btns"><button type="button" class="btn btn2" onclick="prev()">← Voltar e Editar</button><button type="button" class="btn btns3" id="sbtn" onclick="enviar()">✓ Confirmar e Enviar</button></div>
+</div>
+
+</form>
+
+<div class="success-screen" id="successScreen">
+<div class="check-big">✓</div>
+<h2>Solicitação Enviada!</h2>
+<p>Sua solicitação de cadastro de produto foi recebida com sucesso. O Núcleo Fiscal Premix irá analisar e dar retorno por e-mail em breve.</p>
+<div class="protocolo-tag" id="protocoloTag">Protocolo: <strong id="protocolo">—</strong></div>
+<div class="btn-stack"><button class="btn btn1" onclick="novoFormulario()">+ Nova Solicitação</button></div>
+</div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SB_URL='https://frudrwxdygfticgcwigv.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZydWRyd3hkeWdmdGljZ2N3aWd2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxMDg4NzgsImV4cCI6MjA5MzY4NDg3OH0.2laDHYhQEiBu0K9iQCiYtf2T3_Q21rnJAAsNByUKJ10';
+
+const EMAIL_RE=/^[A-Za-z0-9._%+\-]+@premix\.com\.br$/i;
+
+let cur=1;
+
+function showToast(msg,duration=4500,ok=false){
+const t=document.getElementById('toast');
+t.textContent=msg;
+t.className='toast show'+(ok?' ok':'');
+setTimeout(()=>t.classList.remove('show'),duration);
+}
+
+/* Sanitização básica */
+function clean(v){
+if(v==null)return null;
+const s=String(v).trim().replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g,'').replace(/<[^>]*>/g,'');
+return s.length?s:null;
+}
+
+/* Máscara NCM */
+const ncmInput=document.querySelector('[name=ncm]');
+ncmInput.addEventListener('input',function(){
+let v=this.value.replace(/\D/g,'').substring(0,8);
+if(v.length>6)v=v.replace(/(\d{4})(\d{2})(\d{0,2})/,'$1.$2.$3');
+else if(v.length>4)v=v.replace(/(\d{4})(\d{0,4})/,'$1.$2');
+this.value=v.replace(/\.$/,'');
+});
+
+/* Validação */
+function clearErrors(){
+document.querySelectorAll('.fld input, .fld textarea, .fld select').forEach(e=>e.classList.remove('err'));
+document.querySelectorAll('.emsg').forEach(e=>e.classList.remove('show'));
+}
+
+function setError(field,show=true){
+const f=document.querySelector('[name="'+field+'"]');
+if(!f)return null;
+const em=f.closest('.fld').querySelector('.emsg');
+if(show){f.classList.add('err');if(em)em.classList.add('show');}
+else{f.classList.remove('err');if(em)em.classList.remove('show');}
+return f;
+}
+
+function validateAll(){
+clearErrors();
+let ok=true, firstErr=null;
+const required=['email_solicitante','descricao_produto','finalidade','unidade_medida'];
+
+required.forEach(name=>{
+const f=document.querySelector('[name="'+name+'"]');
+if(!f.value.trim()){
+setError(name,true);
+if(!firstErr)firstErr=f;
+ok=false;
+}
+});
+
+/* E-mail @premix.com.br */
+const email=document.querySelector('[name=email_solicitante]');
+if(email.value.trim() && !EMAIL_RE.test(email.value.trim())){
+setError('email_solicitante',true);
+if(!firstErr)firstErr=email;
+ok=false;
+}
+
+/* Descrição mínimo 3 chars */
+const desc=document.querySelector('[name=descricao_produto]');
+if(desc.value.trim() && desc.value.trim().length<3){
+setError('descricao_produto',true);
+if(!firstErr)firstErr=desc;
+ok=false;
+}
+
+/* URL imagem se informada */
+const img=document.querySelector('[name=imagem_url]');
+if(img.value.trim()){
+try{
+const u=new URL(img.value.trim());
+if(!/^https?:$/.test(u.protocol))throw new Error();
+}catch{
+setError('imagem_url',true);
+if(!firstErr)firstErr=img;
+ok=false;
+}
+}
+
+if(!ok){
+showToast('⚠️ Revise os campos destacados');
+if(firstErr)firstErr.focus();
+}
+return ok;
+}
+
+function go(s){
+document.querySelectorAll('.sec').forEach(e=>e.classList.remove('on'));
+document.getElementById('s'+s).classList.add('on');
+cur=s;
+if(s===2){
+buildReview();
+const btn=document.getElementById('sbtn');
+if(btn){
+btn.disabled=true;
+btn.innerHTML='Aguarde...';
+setTimeout(()=>{btn.disabled=false;btn.innerHTML='✓ Confirmar e Enviar';},900);
+}
+}
+window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function next(){
+if(cur===1 && !validateAll())return;
+go(cur+1);
+}
+
+function prev(){
+if(cur>1)go(cur-1);
+}
+
+/* Ícones SVG */
+const ICONS={
+box:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>',
+mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg>',
+check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+image:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'
+};
+
+function esc(s){
+return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function isUrl(s){
+if(!s)return false;
+try{const u=new URL(s);return /^https?:$/.test(u.protocol);}catch{return false;}
+}
+
+function buildReview(){
+const f=new FormData(document.getElementById('frm'));
+const data={};
+for(const[k,v] of f.entries())if(v && String(v).trim())data[k]=String(v).trim();
+
+const solicitanteItems=[
+['E-mail do Solicitante',data.email_solicitante]
+];
+
+const produtoItems=[
+['Descrição',data.descricao_produto,true],
+['Finalidade',data.finalidade,true],
+['NCM',data.ncm],
+['Unidade de Medida',data.unidade_medida],
+['Principais Marcas',data.principais_marcas]
+];
+
+const imagemItems=[
+['Link da Imagem',data.imagem_url,true]
+];
+
+let html='<div class="review-intro"><div class="ri-icon">'+ICONS.check+'</div><div class="ri-text"><div class="ri-title">Confira antes de enviar</div><div class="ri-sub">Revise os dados informados. Após envio, ajustes só serão feitos via Núcleo Fiscal.</div></div></div>';
+
+/* Bloco Solicitante */
+html+=renderBlock('Solicitante',ICONS.mail,solicitanteItems);
+
+/* Bloco Produto */
+html+=renderBlock('Produto',ICONS.box,produtoItems);
+
+/* Bloco Imagem (só se informada) */
+if(data.imagem_url){
+html+=renderBlock('Imagem',ICONS.image,imagemItems);
+}
+
+document.getElementById('reviewContent').innerHTML=html;
+}
+
+function renderBlock(title,icon,items){
+const valid=items.filter(([,v])=>v && String(v).trim() && String(v).trim()!=='-');
+if(valid.length===0)return '';
+let h='<div class="review-box"><div class="review-title"><span class="rt-icon">'+icon+'</span>'+esc(title)+'</div><div class="review-grid">';
+valid.forEach(([label,value,fullWidth])=>{
+const cls='review-item'+(fullWidth?' full':'');
+let rendered=esc(value);
+if(isUrl(value))rendered='<a href="'+esc(value)+'" target="_blank" rel="noopener noreferrer">'+esc(value)+'</a>';
+h+='<div class="'+cls+'"><div class="rl">'+esc(label)+'</div><div class="rv">'+rendered+'</div></div>';
+});
+h+='</div></div>';
+return h;
+}
+
+async function enviar(){
+const btn=document.getElementById('sbtn');
+if(!btn)return;
+btn.disabled=true;
+btn.innerHTML='<span class="spinner"></span> ENVIANDO...';
+
+try{
+const f=new FormData(document.getElementById('frm'));
+const data={};
+for(const[k,v] of f.entries()){
+const val=clean(v);
+if(val)data[k]=val;
+}
+
+if(data.email_solicitante)data.email_solicitante=data.email_solicitante.toLowerCase();
+data.status='PENDENTE';
+
+/* Validação dupla email */
+if(!data.email_solicitante || !EMAIL_RE.test(data.email_solicitante)){
+throw new Error('Apenas e-mails @premix.com.br podem solicitar cadastros.');
+}
+
+if(!data.descricao_produto || !data.finalidade || !data.unidade_medida){
+throw new Error('Preencha todos os campos obrigatórios.');
+}
+
+console.log('Pacote pronto para o Supabase:',data);
+
+const res=await fetch(SB_URL+'/rest/v1/produtos',{
+method:'POST',
+headers:{
+'apikey':SB_KEY,
+'Authorization':'Bearer '+SB_KEY,
+'Content-Type':'application/json',
+'Prefer':'return=representation'
+},
+body:JSON.stringify(data)
+});
+
+if(!res.ok){
+const errText=await res.text();
+console.error('Erro Supabase:',errText);
+if(errText.includes('Limite de cadastros'))throw new Error('Limite de envios por hora atingido. Aguarde antes de tentar novamente.');
+if(errText.includes('email_premix'))throw new Error('E-mail inválido. Use seu e-mail @premix.com.br.');
+if(errText.includes('descricao_len'))throw new Error('Descrição muito curta ou longa (3 a 2000 caracteres).');
+if(errText.includes('finalidade_len'))throw new Error('Finalidade muito curta ou longa (3 a 1000 caracteres).');
+throw new Error('Falha ao enviar. Revise os dados ou tente em instantes.');
+}
+
+const result=await res.json();
+const protocolo=(result[0]?.id||'').slice(0,8).toUpperCase();
+document.getElementById('protocolo').textContent=protocolo||'—';
+
+document.getElementById('frm').classList.add('hide');
+document.getElementById('successScreen').classList.add('show');
+window.scrollTo({top:0,behavior:'smooth'});
+
+}catch(err){
+console.error('Erro na função enviar:',err);
+showToast(err.message||'Erro inesperado',6000);
+}finally{
+btn.disabled=false;
+btn.innerHTML='✓ Confirmar e Enviar';
+}
+}
+
+function novoFormulario(){
+document.getElementById('frm').reset();
+document.getElementById('frm').classList.remove('hide');
+document.getElementById('successScreen').classList.remove('show');
+clearErrors();
+go(1);
+window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
